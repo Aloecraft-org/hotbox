@@ -20,10 +20,13 @@ Assumes the repo is at `~/hotbox`; if not, edit the two paths in
 1. **Registry.**
 
    ```sh
-   mkdir -p ~/.config/containers/systemd
+   mkdir -p ~/.local/share/hotbox/registry ~/.config/containers/systemd
    cp systemd/hotbox-registry.container ~/.config/containers/systemd/
    systemctl --user daemon-reload && systemctl --user start hotbox-registry
    ```
+
+   Create the data directory first. Podman does not create it, and the
+   service exits 125 with `statfs ...: no such file or directory`.
 
    Run `loginctl enable-linger $USER` if it should stay up without an
    active login session.
