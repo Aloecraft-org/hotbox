@@ -1,0 +1,10 @@
+# Rebuilds every image. Edit both paths if the repo is not in ~/hotbox.
+
+[Unit]
+Description=hotbox image rebuild
+After=hotbox-registry.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/hotbox
+ExecStart=%h/hotbox/build.sh

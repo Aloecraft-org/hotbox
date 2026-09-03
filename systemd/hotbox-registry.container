@@ -1,0 +1,13 @@
+# Podman quadlet. Install to ~/.config/containers/systemd/ and it becomes
+# hotbox-registry.service. Bound to loopback; images live under ~/.local/share.
+
+[Unit]
+Description=hotbox local registry
+
+[Container]
+Image=docker.io/library/registry:2
+PublishPort=127.0.0.1:5000:5000
+Volume=%h/.local/share/hotbox/registry:/var/lib/registry:Z
+
+[Install]
+WantedBy=default.target
