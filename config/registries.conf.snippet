@@ -1,6 +1,10 @@
 # Merge into ~/.config/containers/registries.conf. Docker needs no equivalent.
 
-unqualified-search-registries = ["localhost:5000", "docker.io"]
+# localhost:5000 is deliberately not in the search list: hotbox images are
+# always pulled by their full tag, and a second search registry makes short
+# names like debian:bookworm-slim ambiguous. The block below is what makes
+# plain-HTTP pulls from the local registry work.
+unqualified-search-registries = ["docker.io"]
 
 [[registry]]
 location = "localhost:5000"
