@@ -10,11 +10,13 @@ set -euo pipefail
 ENGINE=${ENGINE:-podman}
 REGISTRY=localhost:5000
 
-# name and BASE, one image per row.
+# name and BASE, one image per row. Bases are fully qualified: the registry
+# snippet puts localhost:5000 in unqualified-search-registries, which makes a
+# short name ambiguous, and a timer run cannot answer podman's prompt.
 IMAGES=(
-  "debian debian:bookworm-slim"
-  "alpine alpine:3"
-  "ubuntu ubuntu:24.04"
+  "debian docker.io/library/debian:bookworm-slim"
+  "alpine docker.io/library/alpine:3"
+  "ubuntu docker.io/library/ubuntu:24.04"
 )
 
 # podman takes a pull policy and needs to be told the registry is plain HTTP;

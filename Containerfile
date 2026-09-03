@@ -2,7 +2,7 @@
 # manager is detected from /etc/os-release so every base gets the same list.
 # The tool list is the only thing here worth editing.
 
-ARG BASE=debian:bookworm-slim
+ARG BASE=docker.io/library/debian:bookworm-slim
 FROM ${BASE}
 RUN set -eu; . /etc/os-release; case "$ID" in \
       debian|ubuntu) apt-get update && apt-get install -y --no-install-recommends \
