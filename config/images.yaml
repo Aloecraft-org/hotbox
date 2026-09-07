@@ -1,6 +1,6 @@
 - images:
     - debian:
-        base: "debian:bookworm-slim"
+        base: "docker.io/library/debian:bookworm-slim"
         packages.txt: |
             ca-certificates
             curl
@@ -33,7 +33,7 @@
             vim
             iputils
         package-install-command: |
-            apk add --no-cache ???
+            apk add --no-cache $(cat /tmp/packages.txt) && rm /tmp/packages.txt
     - ubuntu: 
         base: "docker.io/library/ubuntu:24.04"
         packages.txt: |

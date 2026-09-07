@@ -49,6 +49,16 @@ Assumes the repo is at `~/hotbox`; if not, edit the two paths in
 
 Build by hand any time with `./build.sh`, or `ENGINE=docker ./build.sh`.
 
+## Images
+
+`config/images.yaml` is the source of truth: base, package list and install
+command per image. `build.sh` runs `generate.py` over it to render one build
+context per image under `build/` (gitignored, rewritten every run), then builds
+and pushes each. To add a tool, edit the package list in the YAML and re-run
+`build.sh` — nothing else needs touching.
+
+Needs PyYAML (`apt install python3-yaml`).
+
 ## Use
 
 ```sh
