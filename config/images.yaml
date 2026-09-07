@@ -1,0 +1,58 @@
+- images:
+    - debian:
+        base: "debian:bookworm-slim"
+        packages.txt: |
+            ca-certificates
+            curl
+            wget
+            jq
+            git
+            less
+            procps
+            iproute2
+            dnsutils
+            vim-tiny
+            iputils-ping
+            sudo
+        package-install-command: |
+            apt-get update && apt-get install -y --no-install-recommends \
+            $(cat /tmp/packages.txt) && rm /tmp/packages.txt && \
+            rm -rf /var/lib/apt/lists/*
+    - alpine:
+        base: "docker.io/library/alpine:3.24.1"
+        packages.txt: |
+            ca-certificates
+            curl
+            wget
+            jq
+            git
+            less
+            procps
+            iproute2
+            bind-tools
+            vim
+            iputils
+        package-install-command: |
+            apk add --no-cache ???
+    - ubuntu: 
+        base: "docker.io/library/ubuntu:24.04"
+        packages.txt: |
+            ca-certificates
+            curl
+            wget
+            jq
+            git
+            less
+            procps
+            iproute2
+            dnsutils
+            vim-tiny
+            iputils-ping
+            sudo
+        package-install-command: |
+            apt-get update && apt-get install -y --no-install-recommends \
+            $(cat /tmp/packages.txt) && rm /tmp/packages.txt && \
+            rm -rf /var/lib/apt/lists/*
+- images_other:
+    - fedora:
+        note: "listed in containerfile not in build.sh"
