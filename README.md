@@ -49,6 +49,11 @@ Assumes the repo is at `~/hotbox`; if not, edit the two paths in
 
 Build by hand any time with `./build.sh`, or `ENGINE=docker ./build.sh`.
 
+`PULL` selects the base-image pull policy, default `always` — that is what lets
+the weekly rebuild pick up a new base, and it is also what makes a hand-run
+fail when Docker Hub is unreachable or rate limiting. `PULL=missing ./build.sh`
+uses the base already in the local store instead.
+
 ## Images
 
 `config/images.yaml` is the source of truth: base, package list and install
