@@ -8,6 +8,7 @@ Output:        <build-dir>/<name>/{Containerfile,packages.txt}, one per image.
 Fan-out:       the "images" section of the YAML; "images_other" is not built.
 """
 
+import json
 import pathlib
 import re
 import shutil
@@ -18,13 +19,15 @@ try:
 except ModuleNotFoundError:
     sys.exit("generate.py needs PyYAML: apt install python3-yaml")
 
+DEFAULT_CMD = ["/bin/sh"]   # per-image override: a "cmd" list in images.yaml
+
 CONTAINERFILE = """\
 # Generated from {src}. Do not edit; edit the YAML and re-run build.sh.
 FROM {base}
 COPY packages.txt /tmp/packages.txt
 RUN set -eu; {install}
 WORKDIR /work
-CMD ["/bin/sh"]
+CMD {cmd}
 """
 
 
@@ -52,7 +55,8 @@ def main(src, out):
         (context / "packages.txt").write_text(spec["packages.txt"])
         (context / "Containerfile").write_text(CONTAINERFILE.format(
             src=src, base=spec["base"],
-            install=one_line(spec["package-install-command"])))
+            install=one_line(spec["package-install-command"]),
+            cmd=json.dumps(spec.get("cmd", DEFAULT_CMD))))
         print(f"generated {context}/ from {spec['base']}", file=sys.stderr)
         print(name)
 

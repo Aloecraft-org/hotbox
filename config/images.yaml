@@ -55,4 +55,20 @@
             rm -rf /var/lib/apt/lists/*
 - images_other:
     - fedora:
-        note: "listed in containerfile not in build.sh"
+        note: "not built: build.sh only reads the images section"
+        base: "docker.io/library/fedora:latest"
+        packages.txt: |
+            ca-certificates
+            curl
+            wget
+            jq
+            git
+            less
+            procps-ng
+            iproute
+            iputils
+            bind-utils
+            vim-minimal
+        package-install-command: |
+            dnf install -y $(cat /tmp/packages.txt) && rm /tmp/packages.txt && \
+            dnf clean all

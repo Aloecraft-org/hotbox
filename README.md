@@ -55,7 +55,13 @@ Build by hand any time with `./build.sh`, or `ENGINE=docker ./build.sh`.
 command per image. `build.sh` runs `generate.py` over it to render one build
 context per image under `build/` (gitignored, rewritten every run), then builds
 and pushes each. To add a tool, edit the package list in the YAML and re-run
-`build.sh` — nothing else needs touching.
+`build.sh` — nothing else needs touching. There is no Containerfile to edit;
+the generated ones under `build/` are overwritten every run.
+
+Each image may set `cmd:` to override the default `["/bin/sh"]`. Note that
+`hb` with no command runs whatever `cmd` is, so an image whose `cmd` blocks
+(`["tail", "-f", "/dev/null"]`, for a container you exec into) gives you a
+hang instead of a shell; use `hb <name> bash` there.
 
 Needs PyYAML (`apt install python3-yaml`).
 
