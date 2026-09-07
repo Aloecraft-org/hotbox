@@ -14,6 +14,7 @@
             vim-tiny
             iputils-ping
             sudo
+            netcat-openbsd
         package-install-command: |
             apt-get update && apt-get install -y --no-install-recommends \
             $(cat /tmp/packages.txt) && rm /tmp/packages.txt && \
@@ -32,6 +33,7 @@
             bind-tools
             vim
             iputils
+            netcat-openbsd
         package-install-command: |
             apk add --no-cache $(cat /tmp/packages.txt) && rm /tmp/packages.txt
     - ubuntu: 
@@ -49,6 +51,7 @@
             vim-tiny
             iputils-ping
             sudo
+            netcat-openbsd
         package-install-command: |
             apt-get update && apt-get install -y --no-install-recommends \
             $(cat /tmp/packages.txt) && rm /tmp/packages.txt && \
